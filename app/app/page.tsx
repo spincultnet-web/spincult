@@ -10,7 +10,7 @@ export default function Home() {
   const [coinRotation, setCoinRotation] = useState(0);
 
   const [activeWheel, setActiveWheel] = useState("yesno");
-  
+  const [menuOpen, setMenuOpen] = useState(false);
   const [rouletteRotation, setRouletteRotation] = useState(0); 
   
   const [foodSpinning, setFoodSpinning] = useState(false);
@@ -237,14 +237,35 @@ const renderDiceFace = (
 };
 
   return (
-    <main className="min-h-screen bg-black text-white flex">
-      <aside className="w-56 border-r border-yellow-400 bg-gray-900 p-4">
+    <main className="min-h-screen bg-black text-white flex flex-col md:flex-row">
+      <div className="md:hidden p-4 border-b border-yellow-400">
+  <button
+    onClick={() => setMenuOpen(!menuOpen)}
+    className="bg-yellow-400 text-black px-4 py-2 rounded font-bold"
+  >
+    ☰ MENU
+  </button>
+</div>
+      <aside
+  className={`
+    ${menuOpen ? "block" : "hidden"}
+    md:block
+    w-full md:w-56
+    border-b md:border-b-0 md:border-r
+    border-yellow-400
+    bg-gray-900
+    p-4
+  `}
+>
         <h2 className="text-2xl font-bold text-yellow-400 mb-6">
           SPINCULT
         </h2>
 
         <button
-          onClick={() => setActiveWheel("yesno")}
+          onClick={() => {
+  setActiveWheel("yesno");
+  setMenuOpen(false);
+}}
           className={`w-full text-left p-3 mb-2 rounded ${
             activeWheel === "yesno"
               ? "bg-yellow-400 text-black"
@@ -255,7 +276,10 @@ const renderDiceFace = (
         </button>
 
         <button
-          onClick={() => setActiveWheel("roulette")}
+          onClick={() => {
+  setActiveWheel("roulette");
+  setMenuOpen(false);
+}}
           className={`w-full text-left p-3 mb-2 rounded ${
             activeWheel === "roulette"
               ? "bg-yellow-400 text-black"
@@ -266,7 +290,10 @@ const renderDiceFace = (
         </button>
 
         <button
-          onClick={() => setActiveWheel("coin")}
+          onClick={() => {
+  setActiveWheel("coin");
+  setMenuOpen(false);
+}}
           className={`w-full text-left p-3 mb-2 rounded ${
             activeWheel === "coin"
               ? "bg-yellow-400 text-black"
@@ -276,7 +303,10 @@ const renderDiceFace = (
           COIN FLIP
         </button>
         <button
-  onClick={() => setActiveWheel("food")}
+  onClick={() => {
+  setActiveWheel("food");
+  setMenuOpen(false);
+}}
   className={`w-full text-left p-3 mb-2 rounded ${
     activeWheel === "food"
       ? "bg-yellow-400 text-black"
@@ -287,7 +317,10 @@ const renderDiceFace = (
 </button>
 
 <button
-  onClick={() => setActiveWheel("dice")}
+  onClick={() => {
+  setActiveWheel("dice");
+  setMenuOpen(false);
+}}
   className={`w-full text-left p-3 mb-2 rounded ${
     activeWheel === "dice"
       ? "bg-yellow-400 text-black"
@@ -298,7 +331,10 @@ const renderDiceFace = (
 </button>
 
 <button
-  onClick={() => setActiveWheel("magic")}
+  onClick={() => {
+  setActiveWheel("magic");
+  setMenuOpen(false);
+}}
   className={`w-full text-left p-3 mb-2 rounded ${
     activeWheel === "magic"
       ? "bg-yellow-400 text-black"
@@ -314,7 +350,7 @@ const renderDiceFace = (
 
         {activeWheel === "yesno" && (
           <>
-            <h1 className="text-5xl font-bold">
+            <h1 className="text-3xl md:text-5xl font-bold text-center px-2">
               ⚖️ YES / NO WHEEL ⚖️
             </h1>
 
@@ -323,7 +359,7 @@ const renderDiceFace = (
             </div>
 
             <div
-              className="relative w-96 h-96 rounded-full border-8 border-white"
+              className="relative w-72 h-72 md:w-96 md:h-96 rounded-full border-8 border-white"
               style={{
                 transform: `rotate(${rotation}deg)`,
                 transition: spinning ? "transform 3s ease-out" : "none",
@@ -336,13 +372,13 @@ const renderDiceFace = (
 
                 return (
                   <div
-                    key={index}
-                    className="absolute left-1/2 top-1/2 text-black font-bold text-lg"
+                   key={index}
+                    className="absolute left-1/2 top-1/2 text-black font-bold text-[15px] md:text-lg"
                     style={{
                       transform: `
                         translate(-50%, -50%)
                         rotate(${angle}deg)
-                        translateY(-145px)
+                        translateY(-120px)
                       `,
                     }}
                   >
@@ -364,7 +400,7 @@ const renderDiceFace = (
         )}
 {activeWheel === "food" && (
   <>
-    <h1 className="text-5xl font-bold">
+    <h1 className="text-3xl md:text-5xl font-bold text-center px-2">
       🍕 FOOD WHEEL 🍔
     </h1>
 
@@ -373,7 +409,7 @@ const renderDiceFace = (
     </div>
 
     <div
-      className="relative w-96 h-96 rounded-full border-8 border-white"
+      className="relative w-72 h-72 md:w-96 md:h-96 rounded-full border-8 border-white"
       style={{
         transform: `rotate(${foodRotation}deg)`,
         transition: foodSpinning ? "transform 4s ease-out" : "none",
@@ -419,7 +455,7 @@ const renderDiceFace = (
 )}
         {activeWheel === "coin" && (
           <>
-            <h1 className="text-5xl font-bold">
+            <h1 className="text-3xl md:text-5xl font-bold text-center px-2">
               🪙 COIN FLIP 🪙
             </h1>
 
@@ -428,7 +464,7 @@ const renderDiceFace = (
             </div>
 
             <div
-              className="relative w-96 h-96 rounded-full border-8 border-yellow-500"
+              className="relative w-72 h-72 md:w-96 md:h-96 rounded-full border-8 border-yellow-500"
               style={{
                 transform: `rotate(${coinRotation}deg)`,
                 transition: coinSpinning ? "transform 3s ease-out" : "none",
@@ -476,7 +512,7 @@ const renderDiceFace = (
 
 {activeWheel === "roulette" && (
   <>
-    <h1 className="text-5xl font-bold">
+    <h1 className="text-3xl md:text-5xl font-bold text-center px-2">
       ⚪ ROULETTE ⚪
     </h1>
 
@@ -529,7 +565,7 @@ const renderDiceFace = (
 
 {activeWheel === "dice" && (
   <>
-    <h1 className="text-5xl font-bold">
+    <h1 className="text-3xl md:text-5xl font-bold text-center px-2">
       🎲 DICE ROLL 🎲
     </h1>
 
@@ -669,7 +705,7 @@ const renderDiceFace = (
 
 {activeWheel === "magic" && (
   <>
-    <h1 className="text-5xl font-bold">
+    <h1 className="text-3xl md:text-5xl font-bold text-center px-2">
       🎱 MAGIC 8 🎱
     </h1>
 
